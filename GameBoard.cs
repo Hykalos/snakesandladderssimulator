@@ -54,18 +54,11 @@ internal class GameBoard
         var roll = Dice.RoleDice();
         var player = Players[_currentPlayer];
         uint newPosition = player.Position + roll;
-        if (newPosition > FinishPosition)
+        if (newPosition > FinishPosition && !AllowRollover)
         {
-            if (AllowRollover)
-            {
-                newPosition = FinishPosition - (newPosition - FinishPosition);
-            }
-            else
-            {
 #pragma warning disable CS0162 // Unreachable code detected
-                return false;
+            newPosition = FinishPosition - (newPosition - FinishPosition);
 #pragma warning restore CS0162 // Unreachable code detected
-            }
         }
         if (SnakesAndLadders.TryGetValue(newPosition, out var newPositionAfterSnakesAndLadders))
         {

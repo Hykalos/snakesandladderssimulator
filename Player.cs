@@ -17,6 +17,7 @@ public class Player
 
     public void NewPosition(uint roll, uint newPosition)
     {
+        Position = newPosition;
         _history.Add((roll, newPosition));
     }
 }
