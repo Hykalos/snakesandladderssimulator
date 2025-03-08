@@ -3,6 +3,9 @@
 internal class GameBoard
 {
     public readonly Player[] Players;
+    public bool Finished => Players.Any(p => p.Position >= FinishPosition);
+    public uint? LowestRollsForFinishing => Finished ? (uint)Players.Where(p => p.Position >= FinishPosition).Select(p => p.History.Count()).Min() : null;
+
     private const uint StartingPosition = 0;
     private const uint FinishPosition = 100;
     /// <summary>

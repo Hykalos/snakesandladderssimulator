@@ -3,30 +3,57 @@ using SnakesAndLaddersSimulator;
 
 Console.WriteLine("Beginning");
 
-var game = new GameBoard(1);
-
+const uint Simulations = 1000000;
 const uint MaxRolls = 1000;
-uint rolls = 0;
-bool finished = true;
+uint finishedGames = 0;
 
-while(!game.Roll())
+var gameBoards = new GameBoard[Simulations];
+
+for (uint i = 0; i < Simulations; i++)
 {
-    if(++rolls >= MaxRolls)
-    {
-        Console.WriteLine("Game took too long");
-        break;
-    }
+    gameBoards[i] = new GameBoard(1);
 }
 
-var history = game.Players[0].History;
+var tasks = gameBoards.Select(gb => RunGame(gb));
+UpdateProgress(finishedGames, Simulations);
 
-foreach (var item in history)
+await foreach(var task in Task.WhenEach(tasks))
 {
-    Console.WriteLine($"Roll: {item.Roll}, Position: {item.Position}");
+    ++finishedGames;
+    UpdateProgress(finishedGames, Simulations);
 }
 
-Console.WriteLine($"Number of rolls: {history.Count()}");
+Console.WriteLine();
 
-Console.WriteLine(finished ? "Done" : "Game took too long");
+//var history = game.Players[0].History;
+
+//foreach (var item in history)
+//{
+//    Console.WriteLine($"Roll: {item.Roll}, Position: {item.Position}");
+//}
+
+//Console.WriteLine($"Number of rolls: {history.Count()}");
 
 //Console.Write("\rHello again!");
+
+void UpdateProgress(uint finishedGames, uint totalGames)
+{
+    Console.Write($"\r{finishedGames} of {totalGames} games finished");
+}
+
+Task RunGame(GameBoard gameBoard)
+{
+    return Task.Run(() =>
+     {
+         uint rolls = 0;
+
+         while (!gameBoard.Roll())
+         {
+             if (++rolls >= MaxRolls)
+             {
+                 Console.WriteLine("Game took too long");
+                 break;
+             }
+         }
+     });
+}
