@@ -2,8 +2,8 @@
 
 internal static class Dice
 {
-    private const int MaxRoll = 6;
+    private const uint MaxRoll = 6;
 
-    public static int RoleDice()
-        => Random.Shared.Next(0, MaxRoll + 1);
+    public static uint RoleDice()
+        => (uint)Random.Shared.Next(0, (int)MaxRoll + 1);
 }

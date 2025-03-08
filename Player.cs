@@ -6,6 +6,11 @@ public class Player
 {
     public uint Position { get; private set; }
 
+    public Player(uint startingPosition)
+    {
+        Position = startingPosition;
+    }
+
     private List<(uint Roll, uint Position)> _history = new();
 
     public IEnumerable<(uint Roll, uint Position)> History { get => _history.ToImmutableArray(); }
