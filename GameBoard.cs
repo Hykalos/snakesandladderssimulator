@@ -17,6 +17,7 @@ internal class GameBoard
 
     private readonly IReadOnlyDictionary<uint, uint> SnakesAndLadders = new Dictionary<uint, uint>
     {
+        // Normal
         { 1, 38 },
         { 6, 16 },
         { 11, 49 },
@@ -36,6 +37,26 @@ internal class GameBoard
         { 91, 71 },
         { 95, 75 },
         { 98, 80 }
+
+        // Reversed
+        //{ 38, 1 },
+        //{ 16, 6 },
+        //{ 49, 11 },
+        //{ 14, 4 },
+        //{ 60, 21 },
+        //{ 87, 24 },
+        //{ 9, 31 },
+        //{ 47, 35 },
+        //{ 26, 44 },
+        //{ 67, 51 },
+        //{ 53, 56 },
+        //{ 19, 62 },
+        //{ 42, 64 },
+        //{ 93, 73 },
+        //{ 28, 84 },
+        //{ 71, 91 },
+        //{ 75, 95 },
+        //{ 80, 98 }
     };
 
     public GameBoard(int numberOfPlayers)

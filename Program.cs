@@ -60,8 +60,11 @@ foreach (var game in lowestRollingGames)
 
 Console.WriteLine($"Lowest rolling game took {lowestRolls} rolls");
 
-foreach(var uniqueGame in uniqueGames)
+for(var i = 0; i < uniqueGames.Count; ++i)
 {
+    var uniqueGame = uniqueGames[i];
+
+    Console.WriteLine($"Option {i + 1}");
     Console.WriteLine("_________________________");
     Console.WriteLine("| Roll\t| Position\t|");
 
